@@ -170,9 +170,45 @@
         }
         @keyframes hueShift { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
 
+        /* --- Liquid Popup Notify Styles --- */
+        #liquid-notify {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px 50px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        #liquid-notify.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+            animation: liquidPulse 2s infinite;
+        }
+
+        @keyframes liquidPulse {
+            0% { border-radius: 30px 60px 30px 60px; }
+            50% { border-radius: 60px 30px 60px 30px; }
+            100% { border-radius: 30px 60px 30px 60px; }
+        }
+
     </style>
 </head>
 <body>
+
+    <div id="liquid-notify"></div>
 
     <div class="top-banner">
         <div class="jelly-text">සිරිමත්</div>
@@ -232,13 +268,30 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // Custom Popup function
+        function showLiquidNotify(message, isSuccess = false) {
+            const popup = document.getElementById('liquid-notify');
+            popup.innerText = message;
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+                if(isSuccess) {
+                    // මෙතනට ඔයාගේ Home page link එක දාන්න (උදා: index2.html හෝ home.html)
+                    window.location.href = "https://github.com/SANDARUWAN2499285/SIRIMATH.git"; 
+                }
+            }, 2500);
+        }
+
         // Sign In Functionality
         document.getElementById('signin-btn').addEventListener('click', () => {
             const email = document.getElementById('signin-email').value;
             const password = document.getElementById('signin-password').value;
             signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => alert("සාර්ථකව ඇතුළු විය!"))
-                .catch((error) => alert("දෝෂයකි: " + error.message));
+                .then((userCredential) => {
+                    showLiquidNotify("සාර්ථකව ඇතුළු විය! මදක් රැඳී සිටින්න...", true);
+                })
+                .catch((error) => showLiquidNotify("දෝෂයකි: " + error.message));
         });
 
         // Sign Up Functionality
@@ -246,8 +299,10 @@
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => alert("ගිණුම සාර්ථකව සැකසීය!"))
-                .catch((error) => alert("දෝෂයකි: " + error.message));
+                .then((userCredential) => {
+                    showLiquidNotify("ගිණුම සාර්ථකව සැකසීය!", true);
+                })
+                .catch((error) => showLiquidNotify("දෝෂයකි: " + error.message));
         });
     </script>
 
