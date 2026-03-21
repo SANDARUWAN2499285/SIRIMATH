@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sirimath Home - Welcome</title>
     <style>
+        /* මුල් පිටුවේ Font එකම භාවිතා කර ඇත */
         @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,7 +19,7 @@
             overflow: hidden;
             position: relative;
             font-family: 'Inter', sans-serif;
-            /* කලින් තිබූ Colour Fading Background එකමයි */
+            /* Colour Fading Background Animation */
             background: linear-gradient(-45deg, #000000, #1a0500, #00081a, #0a001a);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -30,10 +31,10 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- Jelly Glass Banner --- */
+        /* --- Liquid Jelly Glass Banner --- */
         .welcome-banner {
             width: 85%;
-            max-width: 550px;
+            max-width: 500px;
             padding: 40px 20px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(30px);
@@ -53,15 +54,15 @@
 
         .status-text {
             font-family: 'Abhaya Libre', serif;
-            font-size: 32px;
-            color: #00ff88; /* Success Green Color */
+            font-size: 28px;
+            color: #00ff88; /* Success Green */
             margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
         }
 
         .jelly-title {
             font-family: 'Abhaya Libre', serif;
-            font-size: 55px;
+            font-size: 50px;
             font-weight: 800;
             color: #fff;
             margin-bottom: 30px;
@@ -74,8 +75,8 @@
 
         @keyframes jellyWobble {
             0%, 100% { transform: scale(1, 1); }
-            30% { transform: scale(1.1, 0.95); }
-            50% { transform: scale(0.95, 1.05); }
+            30% { transform: scale(1.1, 0.9); }
+            50% { transform: scale(0.9, 1.1); }
         }
 
         /* --- Jelly Animated Buttons --- */
@@ -96,8 +97,6 @@
             color: white;
             border: none;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
             border-radius: 20px;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(10px);
@@ -116,11 +115,7 @@
 
         .jelly-btn:hover {
             transform: scale(1.05);
-            border-radius: 30px 10px 30px 10px; /* Liquid change effect */
-        }
-
-        .jelly-btn:active {
-            transform: scale(0.95);
+            border-radius: 35px 15px 35px 15px; /* Liquid effect */
         }
 
         .footer {
@@ -128,9 +123,9 @@
             font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
         }
 
-        /* Background Dragon Effect */
+        /* Background Animated Dragon */
         .dragon-bg {
-            position: absolute; width: 700px; height: 700px; z-index: 1;
+            position: absolute; width: 600px; height: 600px; z-index: 1;
             opacity: 0.15; filter: blur(30px); animation: hueShift 12s infinite linear;
         }
         @keyframes hueShift { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
@@ -147,7 +142,7 @@
         <div class="jelly-title">WELCOME</div>
         
         <div class="btn-container">
-            <button class="jelly-btn btn-continue" onclick="location.href='#'">CONTINUE</button>
+            <button class="jelly-btn btn-continue" onclick="location.href='main.html'">CONTINUE</button>
             <button class="jelly-btn btn-logout" onclick="logout()">LOG OUT</button>
         </div>
     </div>
@@ -160,6 +155,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // Firebase Config එක එලෙසම පවතී
         const firebaseConfig = {
           apiKey: "AIzaSyCgZp_3OHfhO6VOOxoQyDcUU-e6F4kTcSA",
           authDomain: "sandaruwan-web.firebaseapp.com",
@@ -173,11 +169,12 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // Logout Function
         window.logout = function() {
             signOut(auth).then(() => {
-                window.location.href = "index.html"; // ආපසු Login එකට යෑම
+                window.location.href = "index.html";
             }).catch((error) => {
-                alert("Error logging out: " + error.message);
+                console.error("Error logging out: ", error);
             });
         }
     </script>
