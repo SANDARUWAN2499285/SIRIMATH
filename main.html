@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sirimath Facebook Pro - Multi Features</title>
+    <title>Sirimath AI Chat & Features</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;600;700&display=swap');
@@ -11,6 +11,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
+            /* Full Glass Effect with Animated Background */
             background: linear-gradient(-45deg, #000, #1a0500, #00081a, #0a001a);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -18,7 +19,7 @@
             color: white;
             overflow-x: hidden;
             min-height: 100vh;
-            padding-bottom: 20px;
+            padding-bottom: 20px; /* For scrolling content */
         }
 
         @keyframes gradientBG {
@@ -125,6 +126,66 @@
         .ig { background: linear-gradient(45deg, #f09433, #bc1888); } .tk { background: #000; border: 1px solid #444; }
         .tg { background: #0088cc; } .ph { background: #444; }
 
+        /* --- AI Chat Overlay --- */
+        #ai-chat-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(35px);
+            display: none; flex-direction: column; justify-content: space-between;
+            align-items: center; z-index: 4000;
+            padding: 20px;
+        }
+        .chat-header {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; max-width: 500px; padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .chat-header h3 { font-family: 'Abhaya Libre'; color: #00f2ea; }
+        .chat-header .close-btn { font-size: 24px; cursor: pointer; color: #aaa; }
+
+        .chat-window {
+            flex-grow: 1; width: 100%; max-width: 500px;
+            background: rgba(255,255,255,0.05); border-radius: 20px;
+            margin-top: 15px; padding: 15px; overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .chat-message { margin-bottom: 10px; }
+        .chat-message.ai { text-align: left; color: #00f2ea; }
+        .chat-message.user { text-align: right; color: white; }
+
+        .chat-input {
+            display: flex; width: 100%; max-width: 500px;
+            background: rgba(255,255,255,0.1); border-radius: 25px;
+            padding: 8px 15px; margin-top: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .chat-input input {
+            flex-grow: 1; background: transparent; border: none; outline: none;
+            color: white; padding: 5px;
+        }
+        .chat-input button {
+            background: none; border: none; color: #00f2ea; font-size: 20px; cursor: pointer;
+        }
+
+        .jelly-robo {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px; height: 120px;
+            background: rgba(0, 242, 234, 0.1);
+            border: 2px solid #00f2ea;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 60px;
+            color: #00f2ea;
+            animation: jellyRoboPulse 3s infinite alternate;
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.5);
+            pointer-events: none; /* Make it not block clicks */
+        }
+        @keyframes jellyRoboPulse {
+            0% { border-radius: 50% 40% 60% 30% / 40% 50% 40% 60%; transform: translate(-50%, -50%) scale(1); }
+            100% { border-radius: 40% 60% 30% 50% / 50% 40% 60% 40%; transform: translate(-50%, -50%) scale(1.05); }
+        }
+
     </style>
 </head>
 <body>
@@ -144,7 +205,7 @@
 
     <div id="home" class="content-section active">
         <div class="collage-grid">
-            <div class="collage-card" style="color: #00f2ea;">
+            <div class="collage-card" style="color: #00f2ea;" onclick="openAIChat()">
                 <i class="fas fa-robot"></i>
                 <span style="font-size: 12px; font-weight: bold;">Chat with සිරිමත් AI</span>
             </div>
@@ -199,6 +260,22 @@
         </div>
     </div>
 
+    <div id="ai-chat-overlay">
+        <div class="chat-header">
+            <h3>Chat with සිරිමත් AI</h3>
+            <span class="close-btn" onclick="closeAIChat()">&times;</span>
+        </div>
+        <div class="jelly-robo">🤖</div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-message ai">Hello! How can I help you today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendAIQuery()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+
     <script>
         function switchTab(tabId, el) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
@@ -210,6 +287,38 @@
         function toggleMenu() {
             const menu = document.getElementById('social-menu');
             menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function openAIChat() {
+            document.getElementById('ai-chat-overlay').style.display = 'flex';
+        }
+
+        function closeAIChat() {
+            document.getElementById('ai-chat-overlay').style.display = 'none';
+        }
+
+        function sendAIQuery() {
+            const userInput = document.getElementById('user-input');
+            const chatWindow = document.getElementById('chat-window');
+            const message = userInput.value.trim();
+
+            if (message === '') return;
+
+            // Display user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('chat-message', 'user');
+            userMessageDiv.textContent = message;
+            chatWindow.appendChild(userMessageDiv);
+
+            // Simulate AI response
+            const aiMessageDiv = document.createElement('div');
+            aiMessageDiv.classList.add('chat-message', 'ai');
+            aiMessageDiv.textContent = "I'm Sirimath AI! I'm still learning, but I'll try my best to answer.";
+            chatWindow.appendChild(aiMessageDiv);
+
+            // Scroll to bottom
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+            userInput.value = ''; // Clear input
         }
     </script>
 </body>
