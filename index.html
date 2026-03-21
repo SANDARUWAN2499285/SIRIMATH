@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sirimath Liquid Glass</title>
     <style>
-        /* ඔයාගේ මුල්ම CSS ටික - පොඩ්ඩක්වත් වෙනස් කර නැත */
+        /* සිංහල පෙනුමට ගැලපෙන Font එකක් */
         @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,6 +30,7 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* --- Liquid Jelly Glass Banner --- */
         .top-banner {
             position: absolute;
             top: 30px;
@@ -73,15 +74,66 @@
             80% { transform: scale(1.05, 0.95); }
         }
 
+        /* --- Login Card & Animations --- */
         .login-card {
-            width: 380px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; padding: 35px;
-            text-align: center; z-index: 100; box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            width: 380px; 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 40px; 
+            padding: 35px;
+            text-align: center; 
+            z-index: 100; 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            overflow: hidden;
         }
 
-        .tabs { display: flex; justify-content: space-around; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .tab { color: rgba(255,255,255,0.5); padding: 10px; cursor: pointer; font-weight: 700; font-size: 14px; }
-        .tab.active { color: #fff; border-bottom: 2px solid #ff4500; }
+        .tabs { 
+            display: flex; 
+            justify-content: space-around; 
+            margin-bottom: 25px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+        }
+
+        .tab { 
+            color: rgba(255,255,255,0.5); 
+            padding: 10px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            font-size: 14px; 
+            transition: 0.3s;
+        }
+
+        .tab.active { 
+            color: #fff; 
+            border-bottom: 2px solid #ff4500; 
+        }
+
+        /* Forms Animation Logic */
+        .form-container {
+            position: relative;
+            min-height: 200px;
+        }
+
+        .form-content {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s ease;
+        }
+
+        .form-content.active-form {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+            animation: slideIn 0.5s forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
         input {
             width: 100%; padding: 14px; margin-bottom: 15px;
@@ -92,15 +144,19 @@
         .btn-main {
             width: 100%; padding: 15px; background: linear-gradient(45deg, #ff4500, #ff0000);
             color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-bottom: 20px;
+            transition: 0.3s;
         }
+        
+        .btn-main:hover { transform: scale(1.02); opacity: 0.9; }
 
         .social-container { display: flex; flex-direction: column; gap: 10px; }
         .btn-social {
             width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
             color: white; display: flex; align-items: center; justify-content: center;
-            text-decoration: none; font-size: 13px;
+            text-decoration: none; font-size: 13px; transition: 0.3s;
         }
+        .btn-social:hover { background: rgba(255, 255, 255, 0.1); }
         .btn-social img { width: 18px; margin-right: 12px; }
 
         .footer {
@@ -113,6 +169,7 @@
             opacity: 0.2; filter: blur(25px); animation: hueShift 10s infinite linear;
         }
         @keyframes hueShift { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
+
     </style>
 </head>
 <body>
@@ -127,20 +184,30 @@
 
     <div class="login-card">
         <div class="tabs">
-            <div class="tab active" id="signInTab">SIGN IN</div>
-            <div class="tab" id="signUpTab">SIGN UP</div>
+            <div id="tab-signin" class="tab active" onclick="switchTab('signin')">SIGN IN</div>
+            <div id="tab-signup" class="tab" onclick="switchTab('signup')">SIGN UP</div>
         </div>
-        
-        <input type="email" id="email" placeholder="Email Address">
-        <input type="password" id="password" placeholder="Password">
-        
-        <button class="btn-main" id="submitBtn">CONTINUE</button>
 
-        <div style="margin-bottom: 15px; color: #444; font-size: 11px;">OR CONNECT WITH</div>
+        <div class="form-container">
+            <div id="signin-form" class="form-content active-form">
+                <input type="email" id="signin-email" placeholder="Email Address">
+                <input type="password" id="signin-password" placeholder="Password">
+                <button class="btn-main" id="signin-btn">CONTINUE</button>
+            </div>
+
+            <div id="signup-form" class="form-content">
+                <input type="text" placeholder="Full Name">
+                <input type="email" id="signup-email" placeholder="Email Address">
+                <input type="password" id="signup-password" placeholder="Create Password">
+                <button class="btn-main" id="signup-btn">GET STARTED</button>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 15px; color: rgba(255,255,255,0.3); font-size: 11px;">OR CONNECT WITH</div>
+        
         <div class="social-container">
             <a href="#" class="btn-social"><img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"> Continue with Google</a>
             <a href="#" class="btn-social"><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"> Continue with Facebook</a>
-            <a href="#" class="btn-social"><img src="https://img.icons8.com/ios-filled/50/ffffff/mac-os.png" alt="Apple"> Continue with Apple</a>
         </div>
     </div>
 
@@ -153,55 +220,58 @@
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCgZp_3OHfhO6VOOxoQyDcUU-e6F4kTcSA",
-            authDomain: "sandaruwan-web.firebaseapp.com",
-            databaseURL: "https://sandaruwan-web-default-rtdb.firebaseio.com",
-            projectId: "sandaruwan-web",
-            storageBucket: "sandaruwan-web.firebasestorage.app",
-            messagingSenderId: "219324339628",
-            appId: "1:219324339628:web:59e0c8debe0ddf9d921609"
+          apiKey: "AIzaSyCgZp_3OHfhO6VOOxoQyDcUU-e6F4kTcSA",
+          authDomain: "sandaruwan-web.firebaseapp.com",
+          databaseURL: "https://sandaruwan-web-default-rtdb.firebaseio.com",
+          projectId: "sandaruwan-web",
+          storageBucket: "sandaruwan-web.firebasestorage.app",
+          messagingSenderId: "219324339628",
+          appId: "1:219324339628:web:59e0c8debe0ddf9d921609"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        let mode = 'signin';
+        // Sign In Functionality
+        document.getElementById('signin-btn').addEventListener('click', () => {
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => alert("සාර්ථකව ඇතුළු විය!"))
+                .catch((error) => alert("දෝෂයකි: " + error.message));
+        });
 
-        // Tab මාරු කරන Logic එක
-        const sInTab = document.getElementById('signInTab');
-        const sUpTab = document.getElementById('signUpTab');
-        const btn = document.getElementById('submitBtn');
-
-        sInTab.onclick = () => {
-            mode = 'signin';
-            sInTab.classList.add('active');
-            sUpTab.classList.remove('active');
-            btn.innerText = "CONTINUE TO SIGN IN";
-        };
-
-        sUpTab.onclick = () => {
-            mode = 'signup';
-            sUpTab.classList.add('active');
-            sInTab.classList.remove('active');
-            btn.innerText = "CREATE ACCOUNT";
-        };
-
-        // Button Click එකේදී Firebase එකට දත්ත යවන හැටි
-        btn.onclick = () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if(mode === 'signup') {
-                createUserWithEmailAndPassword(auth, email, password)
-                    .then(() => alert("සාර්ථකව ලියාපදිංචි විය!"))
-                    .catch((err) => alert(err.message));
-            } else {
-                signInWithEmailAndPassword(auth, email, password)
-                    .then(() => alert("සාර්ථකව ඇතුළු විය!"))
-                    .catch((err) => alert(err.message));
-            }
-        };
+        // Sign Up Functionality
+        document.getElementById('signup-btn').addEventListener('click', () => {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => alert("ගිණුම සාර්ථකව සැකසීය!"))
+                .catch((error) => alert("දෝෂයකි: " + error.message));
+        });
     </script>
+
+    <script>
+        function switchTab(type) {
+            const signInTab = document.getElementById('tab-signin');
+            const signUpTab = document.getElementById('tab-signup');
+            const signInForm = document.getElementById('signin-form');
+            const signUpForm = document.getElementById('signup-form');
+
+            if (type === 'signin') {
+                signInTab.classList.add('active');
+                signUpTab.classList.remove('active');
+                signInForm.classList.add('active-form');
+                signUpForm.classList.remove('active-form');
+            } else {
+                signUpTab.classList.add('active');
+                signInTab.classList.remove('active');
+                signUpForm.classList.add('active-form');
+                signInForm.classList.remove('active-form');
+            }
+        }
+    </script>
+
 </body>
 </html>
 
