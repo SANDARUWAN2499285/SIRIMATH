@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sirimath AI Chat & Features</title>
+    <title>Sirimath Glass Pro - AI & Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            /* Full Glass Effect with Animated Background */
-            background: linear-gradient(-45deg, #000, #1a0500, #00081a, #0a001a);
+            /* විනිවිද පෙනෙන Glass Effect එකට යටින් තදින් වර්ණ වෙනස් වන පසුබිම */
+            background: linear-gradient(-45deg, #000000, #1a0033, #001a33, #330000, #00331a);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 8s ease infinite; /* වේගය වැඩි කර ඇත */
             font-family: 'Inter', sans-serif;
             color: white;
-            overflow-x: hidden;
             min-height: 100vh;
-            padding-bottom: 20px; /* For scrolling content */
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -28,297 +27,179 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- Header --- */
+        /* --- Glass Transparency Boost --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03); /* විනිවිද පෙනෙන බව වැඩි කර ඇත */
+            backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         header {
             position: sticky; top: 0; z-index: 1000;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(25px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(30px);
             padding: 12px 15px;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .logo { font-family: 'Abhaya Libre'; font-size: 26px; font-weight: bold; color: #fff; }
 
-        /* --- Top Navigation Tabs --- */
-        .top-nav {
-            display: flex; justify-content: space-around;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            padding: 8px 0;
-            position: sticky; top: 56px; z-index: 999;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .nav-tab { font-size: 22px; opacity: 0.5; transition: 0.3s; cursor: pointer; padding: 5px 15px; }
-        .nav-tab.active { opacity: 1; border-bottom: 3px solid #1877F2; color: #1877F2; transform: scale(1.1); }
-
-        /* --- Content Layout --- */
-        .content-section { display: none; padding: 15px; animation: fadeIn 0.4s ease; }
-        .content-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- Collage Cards Style --- */
-        .collage-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .collage-card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* --- Dynamic User Info (Home Page) --- */
+        .user-info-bar {
+            padding: 15px; margin: 10px;
             border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            display: flex; flex-direction: column; gap: 5px;
         }
-        .collage-card:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.15); }
-        .collage-card i { font-size: 30px; }
+        .user-name { font-weight: 700; font-size: 18px; color: #1877F2; }
+        .user-email { font-size: 12px; opacity: 0.6; font-family: 'Fira Code', monospace; }
 
-        /* --- Post Area --- */
-        .post-box {
-            background: rgba(255, 255, 255, 0.05); padding: 15px;
-            border-radius: 15px; display: flex; align-items: center; gap: 10px; margin-bottom: 15px;
-        }
-        .post-box img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #00f2ea; }
-        .post-box input { background: transparent; border: none; color: white; flex: 1; outline: none; }
-
-        /* --- Floating Contact Ring --- */
-        #contact-ring {
-            position: fixed; bottom: 30px; right: 20px;
-            width: 65px; height: 65px; z-index: 2000;
-            background: conic-gradient(#ff0050, #00f2ea, #ff0050, #00f2ea);
-            padding: 4px; border-radius: 50%; cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 242, 234, 0.5);
-            animation: rotateRing 5s linear infinite;
-        }
-        @keyframes rotateRing { 100% { transform: rotate(360deg); } }
-        .ring-inner {
-            width: 100%; height: 100%; background: #000; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 24px;
-            animation: counterRotate 5s linear infinite;
-        }
-        @keyframes counterRotate { 100% { transform: rotate(-360deg); } }
-
-        /* --- Social Menu Overlay --- */
-        #social-menu {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.92); backdrop-filter: blur(30px);
-            display: none; justify-content: center; align-items: center; z-index: 3000;
-        }
-        .menu-card {
-            width: 90%; max-width: 400px; background: rgba(255,255,255,0.05);
-            border-radius: 30px; padding: 20px; border: 1px solid rgba(255,255,255,0.1);
-            text-align: center; animation: jellyPopup 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes jellyPopup { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .social-link {
-            display: flex; align-items: center; gap: 15px; padding: 14px 20px;
-            border-radius: 12px; text-decoration: none; color: white; margin-bottom: 10px;
-            font-weight: 600; font-size: 15px; transition: 0.3s;
-        }
-        .social-link i { font-size: 20px; width: 25px; text-align: center; }
-
-        /* Social Colors */
-        .fb { background: #1877F2; } .wa { background: #25D366; } .yt { background: #FF0000; }
-        .ig { background: linear-gradient(45deg, #f09433, #bc1888); } .tk { background: #000; border: 1px solid #444; }
-        .tg { background: #0088cc; } .ph { background: #444; }
-
-        /* --- AI Chat Overlay --- */
+        /* --- AI Chat - Enhanced Customization --- */
         #ai-chat-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(35px);
-            display: none; flex-direction: column; justify-content: space-between;
-            align-items: center; z-index: 4000;
+            position: fixed; inset: 0; z-index: 4000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(40px);
+            display: none; flex-direction: column;
             padding: 20px;
         }
-        .chat-header {
-            display: flex; justify-content: space-between; align-items: center;
-            width: 100%; max-width: 500px; padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .chat-header h3 { font-family: 'Abhaya Libre'; color: #00f2ea; }
-        .chat-header .close-btn { font-size: 24px; cursor: pointer; color: #aaa; }
-
-        .chat-window {
-            flex-grow: 1; width: 100%; max-width: 500px;
-            background: rgba(255,255,255,0.05); border-radius: 20px;
-            margin-top: 15px; padding: 15px; overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.1);
-            animation: fadeIn 0.5s ease;
-        }
-        .chat-message { margin-bottom: 10px; }
-        .chat-message.ai { text-align: left; color: #00f2ea; }
-        .chat-message.user { text-align: right; color: white; }
-
-        .chat-input {
-            display: flex; width: 100%; max-width: 500px;
-            background: rgba(255,255,255,0.1); border-radius: 25px;
-            padding: 8px 15px; margin-top: 20px;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        .chat-input input {
-            flex-grow: 1; background: transparent; border: none; outline: none;
-            color: white; padding: 5px;
-        }
-        .chat-input button {
-            background: none; border: none; color: #00f2ea; font-size: 20px; cursor: pointer;
-        }
-
-        .jelly-robo {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px; height: 120px;
-            background: rgba(0, 242, 234, 0.1);
-            border: 2px solid #00f2ea;
-            border-radius: 50%;
+        .jelly-robo-container {
+            width: 150px; height: 150px; margin: 20px auto;
+            background: radial-gradient(circle, rgba(0,242,234,0.2) 0%, transparent 70%);
             display: flex; justify-content: center; align-items: center;
-            font-size: 60px;
-            color: #00f2ea;
-            animation: jellyRoboPulse 3s infinite alternate;
-            box-shadow: 0 0 30px rgba(0, 242, 234, 0.5);
-            pointer-events: none; /* Make it not block clicks */
         }
-        @keyframes jellyRoboPulse {
-            0% { border-radius: 50% 40% 60% 30% / 40% 50% 40% 60%; transform: translate(-50%, -50%) scale(1); }
-            100% { border-radius: 40% 60% 30% 50% / 50% 40% 60% 40%; transform: translate(-50%, -50%) scale(1.05); }
+        .jelly-robo {
+            font-size: 70px;
+            animation: roboJelly 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px #00f2ea;
         }
+        @keyframes roboJelly {
+            0% { transform: scale(1) translateY(0); filter: hue-rotate(0deg); }
+            100% { transform: scale(1.1) translateY(-10px); filter: hue-rotate(45deg); }
+        }
+
+        /* --- More Tools: Cyber Interface --- */
+        #tools-overlay {
+            position: fixed; inset: 0; z-index: 5000;
+            background: #000; display: none; flex-direction: column;
+            font-family: 'Fira Code', monospace; padding: 20px;
+            color: #0f0; overflow: hidden;
+        }
+        .cyber-loader {
+            border-left: 2px solid #0f0; padding-left: 10px;
+            margin-top: 20px; font-size: 13px; line-height: 1.6;
+        }
+        .typing-text::after { content: "_"; animation: blink 0.8s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- Grid Buttons --- */
+        .collage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+        .collage-card {
+            padding: 25px; border-radius: 20px; text-align: center;
+            cursor: pointer; transition: 0.3s;
+        }
+        .collage-card:active { transform: scale(0.9); }
 
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">සිරිමත්</div>
-        <div style="display: flex; gap: 15px;">🔍 💬</div>
+        <div style="font-family: 'Abhaya Libre'; font-size: 26px;">සිරිමත්</div>
+        <div style="display: flex; gap: 15px;"><i class="fas fa-search"></i> <i class="fas fa-comment-dots"></i></div>
     </header>
 
-    <div class="top-nav">
-        <div class="nav-tab active" onclick="switchTab('home', this)"><i class="fas fa-home"></i></div>
-        <div class="nav-tab" onclick="switchTab('video', this)"><i class="fas fa-play-circle"></i></div>
-        <div class="nav-tab" onclick="switchTab('friends', this)"><i class="fas fa-user-friends"></i></div>
-        <div class="nav-tab" onclick="switchTab('notif', this)"><i class="fas fa-bell"></i></div>
-        <div class="nav-tab" onclick="switchTab('profile', this)"><i class="fas fa-bars"></i></div>
-    </div>
-
     <div id="home" class="content-section active">
+        <div class="user-info-bar glass-panel">
+            <span class="user-name" id="display-name">Guest User</span>
+            <span class="user-email" id="display-email">user@example.com</span>
+        </div>
+
         <div class="collage-grid">
-            <div class="collage-card" style="color: #00f2ea;" onclick="openAIChat()">
-                <i class="fas fa-robot"></i>
-                <span style="font-size: 12px; font-weight: bold;">Chat with සිරිමත් AI</span>
+            <div class="collage-card glass-panel" style="color: #00f2ea;" onclick="openAI()">
+                <i class="fas fa-robot fa-2x"></i><br><br>
+                <b>Sirimath AI</b>
             </div>
-            <div class="collage-card" style="color: #ff8c00;">
-                <i class="fas fa-shopping-cart"></i>
-                <span style="font-size: 12px; font-weight: bold;">ONLINE MARKET</span>
+            <div class="collage-card glass-panel" style="color: #ffcc00;">
+                <i class="fas fa-store fa-2x"></i><br><br>
+                <b>Market</b>
             </div>
-            <div class="collage-card" style="grid-column: span 2; color: #ff0050;">
-                <i class="fas fa-tools"></i>
-                <span style="font-size: 12px; font-weight: bold;">MORE TOOLS</span>
+            <div class="collage-card glass-panel" style="grid-column: span 2; color: #ff0055;" onclick="openTools()">
+                <i class="fas fa-terminal fa-2x"></i><br><br>
+                <b>MORE TOOLS</b>
             </div>
-        </div>
-
-        <div class="post-box">
-            <img src="1774076491049.jpg" alt="Me">
-            <input type="text" placeholder="What's on your mind?">
-            <span>🖼️</span>
-        </div>
-        
-        <p style="text-align: center; opacity: 0.4; font-size: 12px; margin-top: 20px;">Scrolling for more posts...</p>
-    </div>
-
-    <div id="video" class="content-section"><h3>Watch Video Feed</h3></div>
-    <div id="friends" class="content-section"><h3>Friends List</h3></div>
-    <div id="notif" class="content-section"><h3>Notifications</h3></div>
-    <div id="profile" class="content-section">
-        <div style="text-align: center;">
-            <img src="1774076491049.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid #1877F2;">
-            <h2 style="margin-top: 10px;">NIROSHA SANDARUWAN</h2>
-        </div>
-    </div>
-
-    <div id="contact-ring" onclick="toggleMenu()">
-        <div class="ring-inner"><i class="fas fa-link"></i></div>
-    </div>
-
-    <div id="social-menu" onclick="toggleMenu()">
-        <div class="menu-card" onclick="event.stopPropagation()">
-            <img src="1774076491049.jpg" style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid #00f2ea; margin-bottom: 15px;">
-            <h3 style="margin-bottom: 20px;">SOCIAL MEDIA</h3>
-            
-            <div style="max-height: 400px; overflow-y: auto;">
-                <a href="https://www.facebook.com/share/1CUVn4biJa/" class="social-link fb"><i class="fab fa-facebook"></i> Facebook</a>
-                <a href="https://wa.me/94741570339" class="social-link wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                <a href="https://youtube.com/@nirosha_sandaruwan" class="social-link yt"><i class="fab fa-youtube"></i> YouTube</a>
-                <a href="https://www.instagram.com/sandaruwan249928" class="social-link ig"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="https://www.tiktok.com/@nirosha_sandaruwan" class="social-link tk"><i class="fab fa-tiktok"></i> TikTok</a>
-                <a href="https://t.me/SANDARUWAN249928" class="social-link tg"><i class="fab fa-telegram"></i> Telegram</a>
-                <a href="tel:0741570339" class="social-link ph"><i class="fas fa-phone"></i> Call Me</a>
-            </div>
-            <p style="margin-top: 20px; color: #888; font-size: 12px;">Close</p>
         </div>
     </div>
 
     <div id="ai-chat-overlay">
-        <div class="chat-header">
-            <h3>Chat with සිරිමත් AI</h3>
-            <span class="close-btn" onclick="closeAIChat()">&times;</span>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="color: #00f2ea;">සිරිමත් AI Chat</h2>
+            <i class="fas fa-times fa-2x" onclick="closeAI()"></i>
         </div>
-        <div class="jelly-robo">🤖</div>
-        <div class="chat-window" id="chat-window">
-            <div class="chat-message ai">Hello! How can I help you today?</div>
+        <div class="jelly-robo-container">
+            <div class="jelly-robo">🤖</div>
         </div>
-        <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Type your message...">
-            <button onclick="sendAIQuery()"><i class="fas fa-paper-plane"></i></button>
+        <div id="chat-box" style="flex: 1; overflow-y: auto; background: rgba(255,255,255,0.05); border-radius: 15px; padding: 15px;">
+            <p style="color: #00f2ea;">System: Ready to assist you...</p>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <input type="text" id="ai-input" style="flex: 1; background: rgba(255,255,255,0.1); border: 1px solid #00f2ea; border-radius: 30px; padding: 12px; color: white; outline: none;">
+            <button onclick="sendAI()" style="background: #00f2ea; border: none; padding: 10px 20px; border-radius: 50%; color: black;"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
+    <div id="tools-overlay">
+        <div style="display: flex; justify-content: space-between;">
+            <span>[ SYSTEM TERMINAL ]</span>
+            <span onclick="closeTools()" style="color: #f00; cursor: pointer;">[ EXIT ]</span>
+        </div>
+        <div class="cyber-loader" id="cyber-logs">
+            <p class="typing-text">> Initializing Sirimath Cyber Core...</p>
+        </div>
+    </div>
 
     <script>
-        function switchTab(tabId, el) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            el.classList.add('active');
+        // User Detection Simulation
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = "user_" + Math.floor(Math.random()*1000) + "@gmail.com";
+            document.getElementById('display-name').innerText = "Logged User Profile";
+            document.getElementById('display-email').innerText = email;
+        });
+
+        function openAI() { document.getElementById('ai-chat-overlay').style.display = 'flex'; }
+        function closeAI() { document.getElementById('ai-chat-overlay').style.display = 'none'; }
+
+        function openTools() {
+            document.getElementById('tools-overlay').style.display = 'flex';
+            const logs = document.getElementById('cyber-logs');
+            const messages = [
+                "Connecting to secure node...",
+                "Bypassing firewall protocols...",
+                "Encryption keys generated: 2048-bit",
+                "Accessing cloud database...",
+                "Loading Sirimath Security Tools...",
+                "Status: SYSTEM ONLINE"
+            ];
+            let i = 0;
+            const interval = setInterval(() => {
+                if(i < messages.length) {
+                    const p = document.createElement('p');
+                    p.innerText = "> " + messages[i];
+                    logs.appendChild(p);
+                    i++;
+                } else { clearInterval(interval); }
+            }, 800);
         }
 
-        function toggleMenu() {
-            const menu = document.getElementById('social-menu');
-            menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-        }
+        function closeTools() { document.getElementById('tools-overlay').style.display = 'none'; document.getElementById('cyber-logs').innerHTML = ''; }
 
-        function openAIChat() {
-            document.getElementById('ai-chat-overlay').style.display = 'flex';
-        }
-
-        function closeAIChat() {
-            document.getElementById('ai-chat-overlay').style.display = 'none';
-        }
-
-        function sendAIQuery() {
-            const userInput = document.getElementById('user-input');
-            const chatWindow = document.getElementById('chat-window');
-            const message = userInput.value.trim();
-
-            if (message === '') return;
-
-            // Display user message
-            const userMessageDiv = document.createElement('div');
-            userMessageDiv.classList.add('chat-message', 'user');
-            userMessageDiv.textContent = message;
-            chatWindow.appendChild(userMessageDiv);
-
-            // Simulate AI response
-            const aiMessageDiv = document.createElement('div');
-            aiMessageDiv.classList.add('chat-message', 'ai');
-            aiMessageDiv.textContent = "I'm Sirimath AI! I'm still learning, but I'll try my best to answer.";
-            chatWindow.appendChild(aiMessageDiv);
-
-            // Scroll to bottom
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-            userInput.value = ''; // Clear input
+        function sendAI() {
+            const input = document.getElementById('ai-input');
+            const box = document.getElementById('chat-box');
+            if(!input.value) return;
+            box.innerHTML += `<p style="text-align: right; margin-bottom: 10px;">${input.value}</p>`;
+            setTimeout(() => {
+                box.innerHTML += `<p style="color: #00f2ea; margin-bottom: 10px;"><b>AI:</b> Processing request in glass core...</p>`;
+                box.scrollTop = box.scrollHeight;
+            }, 500);
+            input.value = "";
         }
     </script>
 </body>
