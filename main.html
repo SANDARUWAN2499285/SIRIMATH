@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sirimath Main - TikTok Style</title>
+    <title>Sirimath Main - Liquid Glass</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;700&display=swap');
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             height: 100vh;
@@ -36,184 +36,187 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
         }
 
-        .ai-btn {
+        .ai-icon {
+            width: 40px; height: 40px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            border: 1px solid #00f2ea;
-            color: #00f2ea;
-            text-transform: uppercase;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            border: 1px solid rgba(0, 242, 234, 0.5);
+            box-shadow: 0 0 15px rgba(0, 242, 234, 0.2);
+            font-size: 10px; color: #00f2ea; font-weight: bold;
         }
 
-        .search-icon { font-size: 22px; cursor: pointer; }
-
-        /* --- TikTok Video Area (Placeholder) --- */
-        .video-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .jelly-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-            animation: jellyWobble 4s infinite alternate;
-        }
-
-        @keyframes jellyWobble {
-            0% { border-radius: 40px 60px 40px 60px; transform: scale(1); }
-            100% { border-radius: 60px 40px 60px 40px; transform: scale(1.02); }
-        }
-
-        /* --- Floating Contact Me Button --- */
-        .contact-trigger {
+        /* --- Draggable Jelly Button --- */
+        #floating-jelly {
             position: fixed;
-            right: -40px;
-            top: 50%;
-            transform: translateY(-50%) rotate(-90deg);
-            background: #ff0050;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 20px 20px 0 0;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 200;
-            box-shadow: 0 0 20px rgba(255, 0, 80, 0.5);
-            transition: 0.3s;
+            bottom: 100px; right: 20px;
+            width: 60px; height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+            cursor: grab;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: jellyShape 4s infinite alternate;
+            touch-action: none;
         }
 
-        /* --- Social Media Overlay --- */
+        @keyframes jellyShape {
+            0% { border-radius: 50% 40% 60% 30% / 40% 50% 40% 60%; transform: scale(1); }
+            100% { border-radius: 40% 60% 30% 50% / 50% 40% 60% 40%; transform: scale(1.05); }
+        }
+
+        .jelly-inner { font-size: 24px; filter: drop-shadow(0 0 5px white); }
+
+        /* --- Social Menu Overlay --- */
         #social-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(20px);
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(25px);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 300;
+            z-index: 2000;
+            opacity: 0;
+            transition: 0.4s;
         }
 
         .social-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            width: 90%;
-            max-width: 400px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: popupJelly 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popupJelly {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .social-btn {
-            padding: 15px;
+            width: 70px; height: 70px;
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            background: rgba(255,255,255,0.08);
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; font-size: 10px; color: white;
+            flex-direction: column; gap: 5px;
             border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            font-size: 12px;
             transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
         }
 
-        .social-btn:hover {
-            background: #ff0050;
-            transform: scale(1.1);
-            border-radius: 30px 10px 30px 10px;
-        }
+        .social-btn:hover { background: #ff0050; border-radius: 50%; transform: scale(1.1); }
 
-        /* --- Bottom Tab Bar --- */
+        /* --- Bottom Nav (Glass TikTok Style) --- */
         .bottom-nav {
             position: fixed;
-            bottom: 0; width: 100%;
-            height: 70px;
-            background: black;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-top: 0.5px solid rgba(255,255,255,0.2);
+            bottom: 0; width: 100%; height: 80px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            display: flex; justify-content: space-around; align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
         }
 
-        .nav-item { text-align: center; font-size: 10px; color: #888; cursor: pointer; }
-        .nav-item.active { color: white; }
-        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
+        .nav-item {
+            text-align: center; color: rgba(255,255,255,0.5);
+            font-size: 10px; transition: 0.3s;
+        }
 
-        .upload-btn {
-            background: linear-gradient(to right, #00f2ea 20%, #ff0050 80%);
-            width: 45px; height: 30px;
-            border-radius: 8px;
+        .nav-item.active { color: white; transform: translateY(-5px); }
+
+        .upload-container {
+            width: 50px; height: 35px;
+            background: linear-gradient(to right, #00f2ea 15%, #ff0050 85%);
+            border-radius: 10px;
             display: flex; justify-content: center; align-items: center;
-            color: black; font-size: 20px; font-weight: bold;
+            color: black; font-weight: bold; font-size: 20px;
         }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <div class="ai-btn">Sirimath AI</div>
-        <div class="search-icon">🔍</div>
+        <div class="ai-icon">AI</div>
+        <div style="font-size: 20px;">🔍</div>
     </div>
 
-    <div class="video-container">
-        <div class="jelly-card">
-            <h2 style="font-family: 'Abhaya Libre'; font-size: 30px;">For You Feed</h2>
-            <p style="opacity: 0.6; margin-top: 10px;">Liquid Glass Interface Loaded.</p>
-        </div>
+    <div id="floating-jelly">
+        <div class="jelly-inner">🔗</div>
     </div>
-
-    <div class="contact-trigger" onclick="toggleSocials()">CONTACT ME</div>
 
     <div id="social-overlay" onclick="toggleSocials()">
-        <h2 style="margin-bottom: 30px; font-family: 'Abhaya Libre';">Connect with Me</h2>
         <div class="social-grid" onclick="event.stopPropagation()">
             <a href="https://www.facebook.com/share/1CUVn4biJa/" class="social-btn">FB</a>
-            <a href="https://youtube.com/@nirosha_sandaruwan?si=EaWgCpIkYlipPDAD" class="social-btn">YT</a>
-            <a href="https://www.instagram.com/sandaruwan249928?igsh=b2FzaTlldDEzcXZm" class="social-btn">IG</a>
+            <a href="https://youtube.com/@nirosha_sandaruwan" class="social-btn">YT</a>
+            <a href="https://www.instagram.com/sandaruwan249928" class="social-btn">IG</a>
             <a href="https://wa.me/94741570339" class="social-btn">WA</a>
-            <a href="https://www.tiktok.com/@nirosha_sandaruwan?_r=1&_t=ZS-94rnujB84yW" class="social-btn">TT</a>
-            <a href="viber://chat?number=94741570339" class="social-btn">VIBER</a>
+            <a href="https://www.tiktok.com/@nirosha_sandaruwan" class="social-btn">TT</a>
+            <a href="viber://chat?number=94741570339" class="social-btn">VB</a>
             <a href="https://t.me/SANDARUWAN249928" class="social-btn">TG</a>
             <a href="https://x.com/SANDARUWAN82731" class="social-btn">X</a>
-            <a href="https://www.snapchat.com/add/sadaruwan249928" class="social-btn">SC</a>
-            <a href="tel:0741570339" class="social-btn" style="grid-column: span 3; background: #00ff88; color: black;">CALL ME</a>
+            <a href="tel:0741570339" class="social-btn" style="background: #00ff88; color: black;">CALL</a>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-item active"><i>🏠</i>Home</div>
-        <div class="nav-item"><i>👥</i>Friends</div>
-        <div class="upload-btn">+</div>
-        <div class="nav-item"><i>📩</i>Inbox</div>
-        <div class="nav-item"><i>👤</i>Profile</div>
+        <div class="nav-item active">🏠<br>Home</div>
+        <div class="nav-item">👥<br>Friends</div>
+        <div class="upload-container">+</div>
+        <div class="nav-item">📩<br>Inbox</div>
+        <div class="nav-item">👤<br>Profile</div>
     </div>
 
     <script>
+        // Floating Button Drag Logic
+        const jelly = document.getElementById('floating-jelly');
+        let isDragging = false;
+        let startX, startY;
+
+        jelly.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX - jelly.offsetLeft;
+            startY = e.touches[0].clientY - jelly.offsetTop;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            let x = e.touches[0].clientX - startX;
+            let y = e.touches[0].clientY - startY;
+            jelly.style.left = x + 'px';
+            jelly.style.top = y + 'px';
+            jelly.style.right = 'auto';
+            jelly.style.bottom = 'auto';
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Toggle Social Menu
+        jelly.addEventListener('click', () => {
+            if(!isDragging) toggleSocials();
+        });
+
         function toggleSocials() {
             const overlay = document.getElementById('social-overlay');
             if (overlay.style.display === 'flex') {
                 overlay.style.opacity = '0';
-                setTimeout(() => overlay.style.display = 'none', 300);
+                setTimeout(() => overlay.style.display = 'none', 400);
             } else {
                 overlay.style.display = 'flex';
-                overlay.style.opacity = '1';
+                setTimeout(() => overlay.style.opacity = '1', 10);
             }
         }
     </script>
