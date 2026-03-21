@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sirimath Liquid Glass</title>
+    <title>Sirimath Liquid Glass - Firebase Auth</title>
     <style>
-        /* සිංහල පෙනුමට ගැලපෙන Font එකක් */
         @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,110 +29,39 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- Liquid Jelly Glass Banner --- */
         .top-banner {
-            position: absolute;
-            top: 30px;
-            width: 80%;
-            max-width: 500px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            text-align: center;
-            z-index: 150;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255,255,255,0.1);
-            animation: bannerFloat 4s ease-in-out infinite alternate;
+            position: absolute; top: 30px; width: 80%; max-width: 500px; padding: 20px;
+            background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(25px);
+            border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center; z-index: 150; animation: bannerFloat 4s ease-in-out infinite alternate;
         }
 
-        @keyframes bannerFloat {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
+        @keyframes bannerFloat { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 
         .jelly-text {
-            font-family: 'Abhaya Libre', serif;
-            font-size: 48px;
-            font-weight: 800;
-            color: #fff;
-            display: inline-block;
-            letter-spacing: 2px;
+            font-family: 'Abhaya Libre', serif; font-size: 48px; font-weight: 800; color: #fff;
             background: linear-gradient(180deg, #ffffff 30%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: jellyWobble 3s ease-in-out infinite;
         }
 
         @keyframes jellyWobble {
-            0%, 100% { transform: scale(1, 1); filter: hue-rotate(0deg); }
-            30% { transform: scale(1.1, 0.9); }
+            0%, 100% { transform: scale(1, 1); }
             50% { transform: scale(0.9, 1.1) translateY(-5px); }
-            80% { transform: scale(1.05, 0.95); }
         }
 
-        /* --- Login Card & Animations --- */
         .login-card {
-            width: 380px; 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 40px; 
-            padding: 35px;
-            text-align: center; 
-            z-index: 100; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-            overflow: hidden;
+            width: 380px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; padding: 35px;
+            text-align: center; z-index: 100; box-shadow: 0 40px 80px rgba(0,0,0,0.8);
         }
 
-        .tabs { 
-            display: flex; 
-            justify-content: space-around; 
-            margin-bottom: 25px; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
-        }
+        .tabs { display: flex; justify-content: space-around; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .tab { color: rgba(255,255,255,0.5); padding: 10px; cursor: pointer; font-weight: 700; font-size: 14px; }
+        .tab.active { color: #fff; border-bottom: 2px solid #ff4500; }
 
-        .tab { 
-            color: rgba(255,255,255,0.5); 
-            padding: 10px; 
-            cursor: pointer; 
-            font-weight: 700; 
-            font-size: 14px; 
-            transition: 0.3s;
-        }
-
-        .tab.active { 
-            color: #fff; 
-            border-bottom: 2px solid #ff4500; 
-        }
-
-        /* Forms Animation Logic */
-        .form-container {
-            position: relative;
-            min-height: 200px;
-        }
-
-        .form-content {
-            display: none;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.4s ease;
-        }
-
-        .form-content.active-form {
-            display: block;
-            opacity: 1;
-            transform: translateX(0);
-            animation: slideIn 0.5s forwards;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+        .form-content { display: none; opacity: 0; transform: translateY(10px); transition: 0.4s; }
+        .form-content.active-form { display: block; opacity: 1; transform: translateY(0); }
 
         input {
             width: 100%; padding: 14px; margin-bottom: 15px;
@@ -144,32 +72,9 @@
         .btn-main {
             width: 100%; padding: 15px; background: linear-gradient(45deg, #ff4500, #ff0000);
             color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-bottom: 20px;
-            transition: 0.3s;
-        }
-        
-        .btn-main:hover { transform: scale(1.02); opacity: 0.9; }
-
-        .social-container { display: flex; flex-direction: column; gap: 10px; }
-        .btn-social {
-            width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
-            color: white; display: flex; align-items: center; justify-content: center;
-            text-decoration: none; font-size: 13px; transition: 0.3s;
-        }
-        .btn-social:hover { background: rgba(255, 255, 255, 0.1); }
-        .btn-social img { width: 18px; margin-right: 12px; }
-
-        .footer {
-            position: absolute; bottom: 20px; color: rgba(255, 255, 255, 0.3);
-            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
         }
 
-        .dragon-bg {
-            position: absolute; width: 600px; height: 600px; z-index: 1;
-            opacity: 0.2; filter: blur(25px); animation: hueShift 10s infinite linear;
-        }
-        @keyframes hueShift { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
-
+        .footer { position: absolute; bottom: 20px; color: rgba(255, 255, 255, 0.3); font-size: 10px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -178,68 +83,81 @@
         <div class="jelly-text">සිරිමත්</div>
     </div>
 
-    <svg class="dragon-bg" viewBox="0 0 100 100">
-        <path fill="#ff4500" d="M50,10 C30,10 10,30 10,50 C10,70 30,90 50,90 C70,90 90,70 90,50 C90,30 70,10 50,10 M50,20 C65,20 75,30 75,45 C75,55 65,65 50,75 C35,65 25,55 25,45 C25,30 35,20 50,20 Z" />
-    </svg>
-
     <div class="login-card">
         <div class="tabs">
-            <div id="tab-signin" class="tab active" onclick="switchTab('signin')">SIGN IN</div>
-            <div id="tab-signup" class="tab" onclick="switchTab('signup')">SIGN UP</div>
+            <div id="t-signin" class="tab active" onclick="showForm('signin')">SIGN IN</div>
+            <div id="t-signup" class="tab" onclick="showForm('signup')">SIGN UP</div>
         </div>
 
-        <div class="form-container">
-            <div id="signin-form" class="form-content active-form">
-                <input type="email" placeholder="Email Address">
-                <input type="password" placeholder="Password">
-                <button class="btn-main">CONTINUE</button>
-            </div>
-
-            <div id="signup-form" class="form-content">
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Email Address">
-                <input type="password" placeholder="Create Password">
-                <button class="btn-main">GET STARTED</button>
-            </div>
+        <div id="f-signin" class="form-content active-form">
+            <input type="email" id="login-email" placeholder="Email Address">
+            <input type="password" id="login-password" placeholder="Password">
+            <button class="btn-main" id="btn-login">SIGN IN</button>
         </div>
 
-        <div style="margin-bottom: 15px; color: rgba(255,255,255,0.3); font-size: 11px;">OR CONNECT WITH</div>
-        
-        <div class="social-container">
-            <a href="#" class="btn-social"><img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google"> Continue with Google</a>
-            <a href="#" class="btn-social"><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"> Continue with Facebook</a>
+        <div id="f-signup" class="form-content">
+            <input type="email" id="reg-email" placeholder="Email Address">
+            <input type="password" id="reg-password" placeholder="New Password">
+            <button class="btn-main" id="btn-register">CREATE ACCOUNT</button>
         </div>
     </div>
 
-    <div class="footer">
-        POWERED BY NIROSHA SANDARUWAN
-    </div>
+    <div class="footer">POWERED BY NIROSHA SANDARUWAN</div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // ඔයා ලබාදුන් Config එක
+        const firebaseConfig = {
+            apiKey: "AIzaSyCgZp_3OHfhO6VOOxoQyDcUU-e6F4kTcSA",
+            authDomain: "sandaruwan-web.firebaseapp.com",
+            databaseURL: "https://sandaruwan-web-default-rtdb.firebaseio.com",
+            projectId: "sandaruwan-web",
+            storageBucket: "sandaruwan-web.firebasestorage.app",
+            messagingSenderId: "219324339628",
+            appId: "1:219324339628:web:59e0c8debe0ddf9d921609"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Sign Up (ලියාපදිංචි වීම)
+        document.getElementById('btn-register').addEventListener('click', () => {
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("ගිණුම සාර්ථකව සැකසීය! ඔබ දැන් Log වී ඇත.");
+                })
+                .catch((error) => alert(error.message));
+        });
+
+        // Sign In (ඇතුළු වීම)
+        document.getElementById('btn-login').addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("සාර්ථකව ඇතුළු විය!");
+                })
+                .catch((error) => alert("දෝෂයකි: " + error.message));
+        });
+    </script>
 
     <script>
-        function switchTab(type) {
-            const signInTab = document.getElementById('tab-signin');
-            const signUpTab = document.getElementById('tab-signup');
-            const signInForm = document.getElementById('signin-form');
-            const signUpForm = document.getElementById('signup-form');
-
-            if (type === 'signin') {
-                // Update Tabs
-                signInTab.classList.add('active');
-                signUpTab.classList.remove('active');
-                // Update Forms
-                signInForm.classList.add('active-form');
-                signUpForm.classList.remove('active-form');
+        function showForm(type) {
+            document.querySelectorAll('.form-content').forEach(f => f.classList.remove('active-form'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            if(type === 'signin') {
+                document.getElementById('f-signin').classList.add('active-form');
+                document.getElementById('t-signin').classList.add('active');
             } else {
-                // Update Tabs
-                signUpTab.classList.add('active');
-                signInTab.classList.remove('active');
-                // Update Forms
-                signUpForm.classList.add('active-form');
-                signInForm.classList.remove('active-form');
+                document.getElementById('f-signup').classList.add('active-form');
+                document.getElementById('t-signup').classList.add('active');
             }
         }
     </script>
-
 </body>
 </html>
 
