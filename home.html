@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sirimath Home - Welcome</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+            /* කලින් තිබූ Colour Fading Background එකමයි */
+            background: linear-gradient(-45deg, #000000, #1a0500, #00081a, #0a001a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Jelly Glass Banner --- */
+        .welcome-banner {
+            width: 85%;
+            max-width: 550px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            animation: float 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-15px); }
+        }
+
+        .status-text {
+            font-family: 'Abhaya Libre', serif;
+            font-size: 32px;
+            color: #00ff88; /* Success Green Color */
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .jelly-title {
+            font-family: 'Abhaya Libre', serif;
+            font-size: 55px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 30px;
+            display: inline-block;
+            background: linear-gradient(180deg, #ffffff 30%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: jellyWobble 3s ease-in-out infinite;
+        }
+
+        @keyframes jellyWobble {
+            0%, 100% { transform: scale(1, 1); }
+            30% { transform: scale(1.1, 0.95); }
+            50% { transform: scale(0.95, 1.05); }
+        }
+
+        /* --- Jelly Animated Buttons --- */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .jelly-btn {
+            width: 80%;
+            padding: 18px;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-continue {
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .jelly-btn:hover {
+            transform: scale(1.05);
+            border-radius: 30px 10px 30px 10px; /* Liquid change effect */
+        }
+
+        .jelly-btn:active {
+            transform: scale(0.95);
+        }
+
+        .footer {
+            position: absolute; bottom: 20px; color: rgba(255, 255, 255, 0.2);
+            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        /* Background Dragon Effect */
+        .dragon-bg {
+            position: absolute; width: 700px; height: 700px; z-index: 1;
+            opacity: 0.15; filter: blur(30px); animation: hueShift 12s infinite linear;
+        }
+        @keyframes hueShift { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <svg class="dragon-bg" viewBox="0 0 100 100">
+        <path fill="#ff4500" d="M50,10 C30,10 10,30 10,50 C10,70 30,90 50,90 C70,90 90,70 90,50 C90,30 70,10 50,10 M50,20 C65,20 75,30 75,45 C75,55 65,65 50,75 C35,65 25,55 25,45 C25,30 35,20 50,20 Z" />
+    </svg>
+
+    <div class="welcome-banner">
+        <div class="status-text">LOGGED IN SUCCESSFULLY</div>
+        <div class="jelly-title">WELCOME</div>
+        
+        <div class="btn-container">
+            <button class="jelly-btn btn-continue" onclick="location.href='#'">CONTINUE</button>
+            <button class="jelly-btn btn-logout" onclick="logout()">LOG OUT</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        POWERED BY NIROSHA SANDARUWAN
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCgZp_3OHfhO6VOOxoQyDcUU-e6F4kTcSA",
+          authDomain: "sandaruwan-web.firebaseapp.com",
+          databaseURL: "https://sandaruwan-web-default-rtdb.firebaseio.com",
+          projectId: "sandaruwan-web",
+          storageBucket: "sandaruwan-web.firebasestorage.app",
+          messagingSenderId: "219324339628",
+          appId: "1:219324339628:web:59e0c8debe0ddf9d921609"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        window.logout = function() {
+            signOut(auth).then(() => {
+                window.location.href = "index.html"; // ආපසු Login එකට යෑම
+            }).catch((error) => {
+                alert("Error logging out: " + error.message);
+            });
+        }
+    </script>
+</body>
+</html>
+
