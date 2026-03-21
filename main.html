@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sirimath Main - Glass Interface</title>
+    <title>Sirimath Glass Facebook Style</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;600;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            height: 100vh;
             background: linear-gradient(-45deg, #000, #1a0500, #00081a, #0a001a);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             font-family: 'Inter', sans-serif;
             color: white;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            overflow-x: hidden;
+            padding-bottom: 80px;
         }
 
         @keyframes gradientBG {
@@ -27,212 +25,206 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- Top Bar --- */
-        .top-bar {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .ai-icon {
-            width: 35px; height: 35px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            border: 1px solid #00f2ea;
-            font-size: 10px; color: #00f2ea;
-            font-weight: bold;
-        }
-
-        /* --- Draggable Floating Jelly Button --- */
-        #floating-jelly {
-            position: fixed;
-            bottom: 120px; right: 20px;
-            width: 60px; height: 60px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000;
-            cursor: grab;
-            animation: jellyShape 4s infinite alternate;
-            touch-action: none;
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        }
-
-        @keyframes jellyShape {
-            0% { border-radius: 50% 40% 60% 30% / 40% 50% 40% 60%; transform: scale(1); }
-            100% { border-radius: 40% 60% 30% 50% / 50% 40% 60% 40%; transform: scale(1.08); }
-        }
-
-        /* --- Social Menu Overlay --- */
-        #social-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(25px);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .profile-container {
-            width: 90%;
-            max-width: 380px;
+        /* --- Header --- */
+        header {
+            position: sticky; top: 0; z-index: 1000;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
-            padding: 30px 20px;
-            text-align: center;
-            animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .profile-img {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            border: 3px solid #00f2ea;
-            margin-bottom: 15px;
-            object-fit: cover;
-            box-shadow: 0 0 20px rgba(0, 242, 234, 0.3);
-        }
-
-        .profile-name { font-family: 'Abhaya Libre'; font-size: 22px; margin-bottom: 5px; }
-        .profile-sub { font-size: 11px; opacity: 0.6; margin-bottom: 25px; }
-
-        .social-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .social-row {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 15px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: 0.3s;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .social-row:hover { transform: scale(1.02); border-radius: 25px; filter: brightness(1.2); }
-
-        /* Social Colors */
-        .fb { background: #1877F2; }
-        .wa { background: #25D366; }
-        .yt { background: #FF0000; }
-        .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .tk { background: #000000; }
-        .sc { background: #FFFC00; color: black; }
-        .tg { background: #0088cc; }
-        .cl { background: #333333; }
-
-        /* --- Bottom Nav (TikTok Style) --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0; width: 100%; height: 75px;
-            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
-            display: flex; justify-content: space-around; align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            z-index: 100;
+            padding: 10px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .nav-item { font-size: 10px; color: #888; text-align: center; }
-        .nav-item.active { color: white; }
-        .upload-btn {
-            width: 45px; height: 30px;
-            background: linear-gradient(to right, #00f2ea, #ff0050);
-            border-radius: 8px;
-            display: flex; justify-content: center; align-items: center;
-            color: black; font-weight: bold;
+        .logo { font-family: 'Abhaya Libre'; font-size: 28px; color: #fff; }
+        .header-icons { display: flex; gap: 15px; font-size: 20px; }
+
+        /* --- Top Navigation Tabs --- */
+        .top-nav {
+            display: flex; justify-content: space-around;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        .top-nav div { font-size: 20px; opacity: 0.6; transition: 0.3s; cursor: pointer; }
+        .top-nav div.active { opacity: 1; border-bottom: 3px solid #00f2ea; padding-bottom: 5px; }
+
+        /* --- Story Section --- */
+        .stories-container {
+            display: flex; gap: 10px; padding: 15px; overflow-x: auto; scrollbar-width: none;
+        }
+        .stories-container::-webkit-scrollbar { display: none; }
+
+        .story-card {
+            min-width: 110px; height: 180px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            position: relative; overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: jellyWobble 4s infinite alternate;
+        }
+
+        .story-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+
+        .story-profile {
+            position: absolute; top: 10px; left: 10px;
+            width: 35px; height: 35px;
+            border-radius: 50%; border: 3px solid #00f2ea;
+            box-shadow: 0 0 10px #00f2ea;
+        }
+
+        /* --- Floating Draggable Ring Button --- */
+        #floating-contact {
+            position: fixed; bottom: 100px; right: 20px;
+            width: 65px; height: 65px;
+            background: conic-gradient(#ff0050, #00f2ea, #ff0050);
+            padding: 4px; border-radius: 50%;
+            z-index: 1001; cursor: grab; touch-action: none;
+            box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
+            animation: rotateRing 4s linear infinite;
+        }
+
+        @keyframes rotateRing { 100% { transform: rotate(360deg); } }
+
+        .ring-inner {
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 25px; color: white;
+            /* Rotate එක නවත්වන්න ඇතුළත icon එක වෙනම හදනවා */
+            animation: reverseRotate 4s linear infinite;
+        }
+
+        @keyframes reverseRotate { 100% { transform: rotate(-360deg); } }
+
+        /* --- Post Area --- */
+        .post-input {
+            margin: 15px; padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px; display: flex; align-items: center; gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .post-input img { width: 40px; height: 40px; border-radius: 50%; }
+        .post-input input {
+            background: transparent; border: none; color: white; width: 100%; outline: none;
+        }
+
+        /* --- Jelly Menu Overlay --- */
+        #social-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(25px);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+        }
+
+        .profile-card {
+            width: 90%; max-width: 380px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px; padding: 30px; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: jellyPopup 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes jellyPopup { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .social-btn {
+            display: flex; align-items: center; gap: 15px;
+            padding: 12px 20px; border-radius: 15px; text-decoration: none; color: white;
+            margin-bottom: 10px; font-weight: bold; font-size: 14px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+        }
+        .social-btn:hover { border-radius: 25px; transform: scale(1.02); }
+
+        /* --- Navigation Animations --- */
+        .nav-click { animation: tabClick 0.4s ease; }
+        @keyframes tabClick { 50% { transform: scale(0.9); border-radius: 20px; } }
+
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <div class="ai-icon">AI</div>
-        <div style="font-size: 20px; cursor: pointer;">🔍</div>
+    <header>
+        <div class="logo">සිරිමත්</div>
+        <div class="header-icons">➕ 🔍 💬</div>
+    </header>
+
+    <div class="top-nav">
+        <div class="active" onclick="tabAnim(this)">🏠</div>
+        <div onclick="tabAnim(this)">📺</div>
+        <div onclick="tabAnim(this)">👥</div>
+        <div onclick="tabAnim(this)">🔔</div>
+        <div onclick="tabAnim(this)">👤</div>
     </div>
 
-    <div id="floating-jelly">
-        <span style="font-size: 20px;">🔗</span>
+    <div class="post-input">
+        <img src="1774076491049.jpg" alt="Me">
+        <input type="text" placeholder="What's on your mind?">
+        <span>🖼️</span>
+    </div>
+
+    <div class="stories-container">
+        <div class="story-card" style="border: 2px dashed #888;">
+            <div style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 10px;">Create Story</div>
+            <div style="background: #00f2ea; width: 30px; height: 30px; border-radius: 50%; margin: 60px auto; display: flex; justify-content: center; align-items: center; color: black; font-weight: bold;">+</div>
+        </div>
+        <div class="story-card">
+            <img src="1774076491049.jpg" class="story-img">
+            <img src="1774076491049.jpg" class="story-profile">
+            <div style="position: absolute; bottom: 10px; left: 10px; font-size: 10px;">Your story</div>
+        </div>
+        <div class="story-card"><img src="https://via.placeholder.com/110x180" class="story-img"><div style="position: absolute; bottom: 10px; left: 10px; font-size: 10px;">User 01</div></div>
+        <div class="story-card"><img src="https://via.placeholder.com/110x180" class="story-img"><div style="position: absolute; bottom: 10px; left: 10px; font-size: 10px;">User 02</div></div>
+    </div>
+
+    <div id="floating-contact">
+        <div class="ring-inner">🔗</div>
     </div>
 
     <div id="social-overlay" onclick="toggleSocials()">
-        <div class="profile-container" onclick="event.stopPropagation()">
-            <img src="1774076491049.jpg" class="profile-img" alt="Nirosha">
-            <h2 class="profile-name">NIROSHA SANDARUWAN 🚀</h2>
-            <p class="profile-sub">Connect with me on Social Media</p>
-
-            <div class="social-list">
-                <a href="https://www.facebook.com/share/1CUVn4biJa/" class="social-row fb">Facebook</a>
-                <a href="https://wa.me/94741570339" class="social-row wa">WhatsApp</a>
-                <a href="https://youtube.com/@nirosha_sandaruwan" class="social-row yt">YouTube</a>
-                <a href="https://www.instagram.com/sandaruwan249928" class="social-row ig">Instagram</a>
-                <a href="https://www.tiktok.com/@nirosha_sandaruwan" class="social-row tk">TikTok</a>
-                <a href="https://www.snapchat.com/add/sadaruwan249928" class="social-row sc">Snapchat</a>
-                <a href="https://t.me/SANDARUWAN249928" class="social-row tg">Telegram</a>
-                <a href="tel:0741570339" class="social-row cl">Call Me (0741570339)</a>
-            </div>
+        <div class="profile-card" onclick="event.stopPropagation()">
+            <img src="1774076491049.jpg" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #00f2ea; margin-bottom: 10px;">
+            <h2 style="font-family: 'Abhaya Libre';">NIROSHA SANDARUWAN</h2>
+            <p style="font-size: 10px; opacity: 0.6; margin-bottom: 20px;">Connect on Social Media</p>
             
-            <button onclick="toggleSocials()" style="margin-top: 20px; background: none; border: none; color: #888; font-size: 12px; cursor: pointer;">Back to Dashboard</button>
+            <div style="display: flex; flex-direction: column;">
+                <a href="https://wa.me/94741570339" class="social-btn" style="background: #25D366;">WhatsApp</a>
+                <a href="https://youtube.com/@nirosha_sandaruwan" class="social-btn" style="background: #FF0000;">YouTube</a>
+                <a href="tel:0741570339" class="social-btn" style="background: #444;">Call Me</a>
+            </div>
+            <p style="margin-top: 15px; font-size: 11px; color: #888;">Back to Feed</p>
         </div>
     </div>
 
-    <div class="bottom-nav">
-        <div class="nav-item active">🏠<br>Home</div>
-        <div class="nav-item">👥<br>Friends</div>
-        <div class="upload-btn">+</div>
-        <div class="nav-item">📩<br>Inbox</div>
-        <div class="nav-item">👤<br>Profile</div>
-    </div>
-
     <script>
-        const jelly = document.getElementById('floating-jelly');
+        const ring = document.getElementById('floating-contact');
         let isDragging = false;
         let startX, startY;
 
-        // Drag Logic
-        jelly.addEventListener('touchstart', (e) => {
+        // Tab Animation
+        function tabAnim(el) {
+            document.querySelectorAll('.top-nav div').forEach(d => d.classList.remove('active'));
+            el.classList.add('active');
+            el.classList.add('nav-click');
+            setTimeout(() => el.classList.remove('nav-click'), 400);
+        }
+
+        // Draggable Logic
+        ring.addEventListener('touchstart', (e) => {
             isDragging = true;
-            startX = e.touches[0].clientX - jelly.offsetLeft;
-            startY = e.touches[0].clientY - jelly.offsetTop;
+            startX = e.touches[0].clientX - ring.offsetLeft;
+            startY = e.touches[0].clientY - ring.offsetTop;
         });
 
         document.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            let x = e.touches[0].clientX - startX;
-            let y = e.touches[0].clientY - startY;
-            jelly.style.left = x + 'px';
-            jelly.style.top = y + 'px';
-            jelly.style.right = 'auto';
-            jelly.style.bottom = 'auto';
+            ring.style.left = (e.touches[0].clientX - startX) + 'px';
+            ring.style.top = (e.touches[0].clientY - startY) + 'px';
+            ring.style.right = 'auto'; ring.style.bottom = 'auto';
         });
 
         document.addEventListener('touchend', () => { isDragging = false; });
 
-        jelly.addEventListener('click', () => { if(!isDragging) toggleSocials(); });
+        ring.addEventListener('click', () => { if(!isDragging) toggleSocials(); });
 
         function toggleSocials() {
             const overlay = document.getElementById('social-overlay');
