@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sirimath Main - TikTok Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&family=Inter:wght@400;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(-45deg, #000, #1a0500, #00081a, #0a001a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Top Bar --- */
+        .top-bar {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .ai-btn {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            border: 1px solid #00f2ea;
+            color: #00f2ea;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
+        }
+
+        .search-icon { font-size: 22px; cursor: pointer; }
+
+        /* --- TikTok Video Area (Placeholder) --- */
+        .video-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .jelly-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            animation: jellyWobble 4s infinite alternate;
+        }
+
+        @keyframes jellyWobble {
+            0% { border-radius: 40px 60px 40px 60px; transform: scale(1); }
+            100% { border-radius: 60px 40px 60px 40px; transform: scale(1.02); }
+        }
+
+        /* --- Floating Contact Me Button --- */
+        .contact-trigger {
+            position: fixed;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            background: #ff0050;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 20px 20px 0 0;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 200;
+            box-shadow: 0 0 20px rgba(255, 0, 80, 0.5);
+            transition: 0.3s;
+        }
+
+        /* --- Social Media Overlay --- */
+        #social-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .social-btn {
+            padding: 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 12px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-btn:hover {
+            background: #ff0050;
+            transform: scale(1.1);
+            border-radius: 30px 10px 30px 10px;
+        }
+
+        /* --- Bottom Tab Bar --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; width: 100%;
+            height: 70px;
+            background: black;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 0.5px solid rgba(255,255,255,0.2);
+            z-index: 100;
+        }
+
+        .nav-item { text-align: center; font-size: 10px; color: #888; cursor: pointer; }
+        .nav-item.active { color: white; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
+
+        .upload-btn {
+            background: linear-gradient(to right, #00f2ea 20%, #ff0050 80%);
+            width: 45px; height: 30px;
+            border-radius: 8px;
+            display: flex; justify-content: center; align-items: center;
+            color: black; font-size: 20px; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="ai-btn">Sirimath AI</div>
+        <div class="search-icon">🔍</div>
+    </div>
+
+    <div class="video-container">
+        <div class="jelly-card">
+            <h2 style="font-family: 'Abhaya Libre'; font-size: 30px;">For You Feed</h2>
+            <p style="opacity: 0.6; margin-top: 10px;">Liquid Glass Interface Loaded.</p>
+        </div>
+    </div>
+
+    <div class="contact-trigger" onclick="toggleSocials()">CONTACT ME</div>
+
+    <div id="social-overlay" onclick="toggleSocials()">
+        <h2 style="margin-bottom: 30px; font-family: 'Abhaya Libre';">Connect with Me</h2>
+        <div class="social-grid" onclick="event.stopPropagation()">
+            <a href="https://www.facebook.com/share/1CUVn4biJa/" class="social-btn">FB</a>
+            <a href="https://youtube.com/@nirosha_sandaruwan?si=EaWgCpIkYlipPDAD" class="social-btn">YT</a>
+            <a href="https://www.instagram.com/sandaruwan249928?igsh=b2FzaTlldDEzcXZm" class="social-btn">IG</a>
+            <a href="https://wa.me/94741570339" class="social-btn">WA</a>
+            <a href="https://www.tiktok.com/@nirosha_sandaruwan?_r=1&_t=ZS-94rnujB84yW" class="social-btn">TT</a>
+            <a href="viber://chat?number=94741570339" class="social-btn">VIBER</a>
+            <a href="https://t.me/SANDARUWAN249928" class="social-btn">TG</a>
+            <a href="https://x.com/SANDARUWAN82731" class="social-btn">X</a>
+            <a href="https://www.snapchat.com/add/sadaruwan249928" class="social-btn">SC</a>
+            <a href="tel:0741570339" class="social-btn" style="grid-column: span 3; background: #00ff88; color: black;">CALL ME</a>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active"><i>🏠</i>Home</div>
+        <div class="nav-item"><i>👥</i>Friends</div>
+        <div class="upload-btn">+</div>
+        <div class="nav-item"><i>📩</i>Inbox</div>
+        <div class="nav-item"><i>👤</i>Profile</div>
+    </div>
+
+    <script>
+        function toggleSocials() {
+            const overlay = document.getElementById('social-overlay');
+            if (overlay.style.display === 'flex') {
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.style.display = 'none', 300);
+            } else {
+                overlay.style.display = 'flex';
+                overlay.style.opacity = '1';
+            }
+        }
+    </script>
+</body>
+</html>
+
