@@ -365,7 +365,7 @@
 
     <header>
         <div class="logo">සිරිමත්</div>
-        <div style="display: flex; gap: 15px;">🔍 💬</div>
+        <div style="display: flex; gap: 15px;">💎  ⚙️</div>
     </header>
 
     <div class="top-nav">
@@ -395,7 +395,7 @@
         <div class="post-box">
             <img src="1774076491049.jpg" alt="Me">
             <input type="text" placeholder="What's on your mind?">
-            <span>🖼️</span>
+            <span>♥️</span>
         </div>
 
         <p style="text-align: center; opacity: 0.4; font-size: 12px; margin-top: 20px;">Scrolling for more posts...</p>
@@ -462,7 +462,7 @@
             <div class="ai-welcome" id="ai-welcome">
                 <span class="ai-welcome-logo">☯</span>
                 <div class="ai-welcome-title">සිරිමත් AI</div>
-                <div class="ai-welcome-sub">ඔබේ most powerful AI assistant. Code, web dev, linux, debugging - ඕනෑම දෙයක් අහන්න!</div>
+                <div class="ai-welcome-sub">most powerful AI assistant. Code, web dev, linux, debugging - ඕනෑම දෙයක් අහන්න!</div>
                 <div class="ai-wgrid">
                     <div class="ai-wcard" onclick="qp('Python automation script ලියල දෙන්න')"><div class="wi">🐍</div><div class="wt">Python</div><div class="wd">Scripts & automation</div></div>
                     <div class="ai-wcard" onclick="qp('Modern HTML CSS website හදල දෙන්න')"><div class="wi">🌐</div><div class="wt">Web Dev</div><div class="wd">HTML, CSS, JS</div></div>
@@ -482,7 +482,7 @@
                         onkeydown="aiHandleKey(event)"
                         oninput="aiResize(this)"></textarea>
                 </div>
-                <div class="ai-fnote">SIRIMATH AI // POWERED BY CLAUDE // BY NIROSHA SANDARUWAN</div>
+                <div class="ai-fnote">SIRIMATH AI // POWERED BY SIRIMATH // BY NIROSHA SANDARUWAN</div>
             </div>
             <button class="ai-send" id="ai-send" onclick="aiSend()">➤</button>
         </div>
@@ -556,7 +556,7 @@ Code දෙද්දී \`\`\`language\n...\n\`\`\` format use කරන්න. 
             const msgsEl = document.getElementById('ai-msgs');
             const d = document.createElement('div');
             d.className = `ai-msg ${role}${typing?' gen':''}`;
-            const av = role === 'ai' ? '☯' : '👤';
+            const av = role === 'ai' ? '☯' : '⭕';
             const avatarDiv = `<div class="ai-avatar">${av}</div>`;
             const bubble = document.createElement('div');
             bubble.className = 'ai-bubble';
